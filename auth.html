@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sowfee - Login / Sign Up</title>
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+            margin: 0;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #f0f0f0;
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .auth-button {
+            background-color: #8F00FF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .auth-button:hover {
+            background-color: #7000CC;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 1rem auto;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #8F00FF;
+            outline: none;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-links {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .tab-link {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #8F00FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .tab-link:hover {
+            background-color: #7000CC;
+        }
+        .small-note {
+            font-size: 0.9rem;
+            color: #777;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-container">
+        <h1 class="text-2xl font-bold">Sowfee</h1>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <div class="tab-links">
+        <button class="tab-link" onclick="showTab('login')">Login</button>
+        <button class="tab-link" onclick="showTab('signup')">Sign Up</button>
+    </div>
+
+    <div class="form-container">
+        <!-- Login Form -->
+        <div id="login" class="tab active">
+            <h2 class="text-2xl font-bold mb-4">Login</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="login-email" class="block">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="login-password" class="block">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="auth-button w-full">Login</button>
+                <p class="footer-text">Don't have an account? <a href="#" class="text-purple-600" onclick="showTab('signup')">Sign Up</a></p>
+            </form>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signup" class="tab">
+            <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="signup-name" class="block">Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-email" class="block">Email <span class="small-note">(Use your institution's email)</span></label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="university" class="block">University</label>
+                    <input type="text" id="university" placeholder="Enter your university" required>
+                </div>
+                <div class="mb-4">
+                    <label for="signup-password" class="block">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit" class="auth-button w-full">Sign Up</button>
+                <p class="footer-text">Already have an account? <a href="#" class="text-purple-600" onclick="showTab('login')">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

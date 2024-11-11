@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sowfee Health Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex flex-col h-screen">
+        <header class="bg-purple-600 p-4 text-white">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Sowfee Health Dashboard</h1>
+                <button id="hamburger" class="text-white focus:outline-none md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="hidden md:block bg-white w-64 shadow-lg p-4">
+                <ul>
+                    <li><a href="dashboard.html" class="block py-2 text-gray-700 hover:bg-purple-100">Analytics</a></li>
+                    <li><a href="create-survey.html" class="block py-2 text-gray-700 hover:bg-purple-100">Create Survey</a></li>
+                </ul>
+            </nav>
+
+            <main class="flex-1 p-6">
+                <!-- Summary Boxes -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-lg font-bold mb-2">Total Students</h3>
+                        <p class="text-3xl font-semibold">1,200</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-lg font-bold mb-2">Students at Risk</h3>
+                        <p class="text-3xl font-semibold text-red-500">200</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-lg font-bold mb-2">Surveys Completed</h3>
+                        <p class="text-3xl font-semibold text-green-500">800</p>
+                    </div>
+                </div>
+
+                <!-- Students in Need Table -->
+                <div class="bg-white shadow rounded-lg p-6 mb-6">
+                    <h2 class="font-bold text-xl mb-4">Students in Need</h2>
+                    <table id="studentsTable" class="w-full border border-gray-200">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Student Name</th>
+                                <th class="py-3 px-4 text-left">Risk Level</th>
+                                <th class="py-3 px-4 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">John Doe</td>
+                                <td class="py-2 px-4">High</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded">Email</button>
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded ml-2">View Results</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">Jane Smith</td>
+                                <td class="py-2 px-4">Medium</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded">Email</button>
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded ml-2">View Results</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2 px-4">Mark Johnson</td>
+                                <td class="py-2 px-4">Low</td>
+                                <td class="py-2 px-4">
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded">Email</button>
+                                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded ml-2">View Results</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- See More Button -->
+                    <button id="seeMoreBtn" class="mt-4 text-white bg-purple-500 hover:bg-purple-600 py-1 px-4 rounded-full block mx-auto text-sm">
+                        See More
+                    </button>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                    <!-- Total Responses Per Month -->
+                    <div class="bg-white p-4 rounded-lg shadow" style="height: 400px;">
+                        <h3 class="text-lg font-bold mb-4">Total Responses Per Month</h3>
+                        <canvas id="totalResponsesChart" height="200"></canvas>
+                    </div>
+
+                    <!-- Average Score Over Time -->
+                    <div class="bg-white p-4 rounded-lg shadow" style="height: 400px;">
+                        <h3 class="text-lg font-bold mb-4">Average Score Over Time</h3>
+                        <canvas id="averageScoreChart" height="200"></canvas>
+                    </div>
+
+                    <!-- Emotional Breakdown -->
+                    <div class="bg-white p-4 rounded-lg shadow" style="height: 400px;">
+                        <h3 class="text-lg font-bold mb-4">Emotional Breakdown</h3>
+                        <canvas id="emotionalBreakdownChart" height="200"></canvas>
+                    </div>
+
+                    <!-- Risk Levels -->
+                    <div class="bg-white p-4 rounded-lg shadow" style="height: 400px;">
+                        <h3 class="text-lg font-bold mb-4">Risk Levels</h3>
+                        <canvas id="riskLevelsChart" height="200"></canvas>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="bg-gray-200 text-center p-4">
+            <p>&copy; 2024 Sowfee Health. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const hamburger = document.getElementById('hamburger');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Show More Students Function
+        function showMoreRows() {
+            const table = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            newRow.innerHTML = `
+                <td class="py-2 px-4">New Student</td>
+                <td class="py-2 px-4">Medium</td>
+                <td class="py-2 px-4">
+                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded">Email</button>
+                    <button class="bg-purple-500 text-white py-1 px-2 text-sm rounded ml-2">View Results</button>
+                </td>
+            `;
+        }
+
+        // Add Event Listener for "See More" Button
+        document.getElementById('seeMoreBtn').addEventListener('click', showMoreRows);
+
+        // ChartJS Code for Various Charts
+        function createChart(ctx, chartType, label, data, colors) {
+            new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: chartType === 'bar' ? 'Risk Levels' : 'Emotional Breakdown',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 2,
+                        fill: chartType === 'line', // Fill only for line chart
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true },
+                        y: { beginAtZero: true },
+                    }
+                }
+            });
+        }
+
+        // Create Charts
+        createChart(document.getElementById('totalResponsesChart').getContext('2d'), 'bar', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], [50, 150, 200, 250, 300, 400], 'rgba(33, 150, 243, 0.7)');
+        createChart(document.getElementById('averageScoreChart').getContext('2d'), 'line', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], [85, 90, 88, 91, 87, 92], 'rgba(0, 200, 83, 0.7)');
+        createChart(document.getElementById('emotionalBreakdownChart').getContext('2d'), 'pie', ['Happy', 'Stressed', 'Sad'], [40, 30, 30], ['rgb(76, 175, 80)', 'rgb(63, 81, 181)', 'rgb(244, 67, 54)']);
+        createChart(document.getElementById('riskLevelsChart').getContext('2d'), 'bar', ['High', 'Medium', 'Low'], [50, 100, 150], ['rgb(244, 67, 54)', 'rgb(255, 193, 7)', 'rgb(33, 150, 243)']);
+    </script>
+</body>
+</html>

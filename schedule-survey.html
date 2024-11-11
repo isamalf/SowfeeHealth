@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Survey - Sowfee Health</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/api.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-purple-600 p-4 text-white">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Schedule Survey</h1>
+            </div>
+        </header>
+
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <nav class="hidden md:block bg-white w-64 shadow-lg p-4">
+                <ul>
+                    <li><a href="dashboard.html" class="block py-2 text-gray-700 hover:bg-purple-100">Analytics</a></li>
+                    <li><a href="schedule-survey.html" class="block py-2 text-gray-700 hover:bg-purple-100">Schedule Survey</a></li>
+                </ul>
+            </nav>
+
+            <main class="flex-1 p-6">
+                <!-- Survey Scheduling Form -->
+                <div class="bg-white p-6 rounded-lg shadow mb-6">
+                    <h2 class="text-xl font-bold mb-4">Schedule a Survey</h2>
+                    <form action="#" method="POST">
+                        
+                        <!-- Choose Day -->
+                        <div class="mb-4">
+                            <label for="surveyDay" class="block text-gray-700 text-lg">Choose the Day</label>
+                            <select id="surveyDay" name="surveyDay" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg" required>
+                                <option value="">Select a Day</option>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                            </select>
+                        </div>
+
+                        <!-- Choose Time -->
+                        <div class="mb-4">
+                            <label for="surveyTime" class="block text-gray-700 text-lg">Choose the Time</label>
+                            <div class="flex items-center">
+                                <input type="number" id="hour" name="hour" min="1" max="12" class="mt-1 block w-1/4 p-3 border border-gray-300 rounded-lg" required placeholder="Hour" oninput="limitInput(this, 2)">
+                                <span class="text-gray-700 mx-2 text-lg">:</span>
+                                <input type="number" id="minute" name="minute" min="0" max="59" class="mt-1 block w-1/4 p-3 border border-gray-300 rounded-lg" required placeholder="Minutes" oninput="limitInput(this, 2)">
+                                <select id="ampm" name="ampm" class="ml-2 p-3 border border-gray-300 rounded-lg">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Recurring Survey Checkbox -->
+                        <div class="mb-4 flex items-center">
+                            <input type="checkbox" id="recurringSurvey" name="recurringSurvey" class="mr-2">
+                            <label for="recurringSurvey" class="text-gray-700 text-lg">Make this a recurring survey</label>
+                        </div>
+
+                        <!-- Email Connection Selection -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-lg">Connect to an Email Service</label>
+                            <div class="flex space-x-4">
+                                <!-- Gmail Option -->
+                                <button type="button" id="connectGmail" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="handleAuthClick()">
+                                    Connect to Gmail
+                                </button>
+                                <!-- Outlook Option -->
+                                <button type="button" id="connectOutlook" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                                    Connect to Outlook
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Group Selection (dynamically populated after connection) -->
+                        <div class="mb-4" id="groupSelection" style="display: none;">
+                            <label for="emailGroup" class="block text-gray-700 text-lg">Select Email Group</label>
+                            <select id="emailGroup" name="emailGroup" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
+                                <option value="">Select a Group</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg text-lg hover:bg-purple-700">Schedule Survey</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <footer class="bg-gray-200 text-center p-4">
+            <p>&copy; 2024 Sowfee Health. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize the Google API client library
+        function initGAPI() {
+            gapi.load('client:auth2', () => {
+                gapi.auth2.init({
+                    client_id: '228735487661-620r6antvitr8vimvg1u6eq7r0qf1uop.apps.googleusercontent.com', // Replace with your client ID
+                    scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send',
+                }).then(() => {
+                    console.log('GAPI client loaded');
+                }).catch(err => {
+                    console.error('Error loading GAPI client:', err);
+                });
+            });
+        }
+
+        // Gmail OAuth 2.0 login handler
+        function handleAuthClick() {
+            const authInstance = gapi.auth2.getAuthInstance();
+            authInstance.signIn().then(() => {
+                console.log('Signed in to Gmail');
+                populateEmailGroups(); // Fetch groups after login
+            }).catch(error => {
+                console.error('Error signing in:', error);
+            });
+        }
+
+        // Fetch email groups from Gmail
+        function populateEmailGroups() {
+            const request = gapi.client.gmail.users.labels.list({
+                'userId': 'me'
+            });
+            request.execute(function(response) {
+                console.log(response);  // Debugging: check API response
+                const groups = response.labels || [];
+                const groupSelect = document.getElementById('emailGroup');
+                groupSelect.innerHTML = '<option value="">Select a Group</option>';  // Reset options
+                groups.forEach(group => {
+                    const option = document.createElement('option');
+                    option.value = group.id;
+                    option.textContent = group.name;
+                    groupSelect.appendChild(option);
+                });
+
+                // Show the group selection section
+                document.getElementById('groupSelection').style.display = 'block';
+            });
+        }
+
+        // Initialize the API when the page loads
+        window.onload = initGAPI;
+    </script>
+
+</body>
+</html>

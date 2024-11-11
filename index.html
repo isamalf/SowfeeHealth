@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sowfee - Landing Page</title>
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            margin: 0 20px;
+            color: black;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #8F00FF;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-button {
+            background-color: #8F00FF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-button:hover {
+            background-color: #7000CC;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+
+    <header class="bg-gray-200 text-black">
+        <div class="header-container">
+            <h1 class="text-2xl font-bold">Sowfee</h1>
+            <nav>
+                <a href="#mission">Mission</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#demo">Demo</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="auth-button" onclick="window.location.href='auth.html'">Login</button>
+                <button class="auth-button" onclick="window.location.href='auth.html'">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <section id="main" class="flex items-center justify-center h-screen bg-white text-center">
+        <div>
+            <h2 class="text-4xl font-bold mb-4 text-purple-600">Welcome to Sowfee</h2>
+            <p class="max-w-2xl mx-auto mb-6">We are dedicated to enhancing mental health services in educational institutions. Join us in our mission to empower counselors and support students through innovative solutions.</p>
+            <a href="#mission" class="bg-purple-600 text-white px-6 py-3 rounded shadow-lg hover:bg-purple-700 transition duration-300" id="learnMoreBtn">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="flex items-center justify-center h-screen bg-gray-100 text-center section hidden">
+        <div class="max-w-3xl mx-auto p-8">
+            <h2 class="text-4xl font-bold mb-4 text-purple-600">Our Mission</h2>
+            <p class="text-lg mb-6">At Sowfee, we are committed to revolutionizing mental health services in educational institutions. Our goal is to empower counselors and enhance student well-being through innovative pulse surveys and analytics.</p>
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold mb-2 text-purple-600">Our Commitment</h3>
+                <p class="mb-4">We strive to provide actionable insights through data-driven approaches, ensuring that every student receives the support they need.</p>
+                <h3 class="text-2xl font-semibold mb-2 text-purple-600">Why Choose Sowfee?</h3>
+                <ul class="list-disc list-inside text-left mb-4">
+                    <li>Customized surveys tailored to specific needs</li>
+                    <li>User-friendly interface for counselors and students</li>
+                    <li>Real-time analytics to track student engagement</li>
+                    <li>Dedicated support to help you every step of the way</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="flex items-center justify-center h-screen bg-white text-center section hidden">
+        <div>
+            <h2 class="text-4xl font-bold mb-4 text-purple-600">Pricing Plans</h2>
+            <div class="flex justify-center space-x-8">
+                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
+                    <h3 class="text-xl font-bold mb-2">Basic</h3>
+                    <p class="mb-4">$20/month</p>
+                    <ul class="mb-4">
+                        <li>Up to 100 students</li>
+                        <li>Basic analytics</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
+                    <h3 class="text-xl font-bold mb-2">Pro</h3>
+                    <p class="mb-4">$50/month</p>
+                    <ul class="mb-4">
+                        <li>Up to 500 students</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority email support</li>
+                    </ul>
+                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
+                    <h3 class="text-xl font-bold mb-2">Premium</h3>
+                    <p class="mb-4">$100/month</p>
+                    <ul class="mb-4">
+                        <li>Unlimited students</li>
+                        <li>Advanced analytics</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
+                    <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+                    <p class="mb-4">Contact for pricing</p>
+                    <ul class="mb-4">
+                        <li>Unlimited students</li>
+                        <li>Custom analytics</li>
+                        <li>24/7 support</li>
+                    </ul>
+                    <a href="#contact" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="flex items-center justify-center h-screen bg-gray-100 text-center section hidden">
+        <div>
+            <h2 class="text-4xl font-bold mb-4 text-purple-600">Watch Our Demo</h2>
+            <p class="mb-6">See how Sowfee works and the impact it can have on mental health services.</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/fXbKOs2cozU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="flex items-center justify-center h-screen bg-white text-center section hidden">
+        <div>
+            <h2 class="text-4xl font-bold mb-4 text-purple-600">Contact Us</h2>
+            <p class="mb-4">We'd love to hear from you! Please fill out the form below to get in touch.</p>
+            <form class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+                <label for="name" class="block mb-2 text-left">Name</label>
+                <input type="text" id="name" class="w-full mb-4 p-2 border border-gray-300 rounded" required>
+                <label for="email" class="block mb-2 text-left">Email</label>
+                <input type="email" id="email" class="w-full mb-4 p-2 border border-gray-300 rounded" required>
+                <label for="message" class="block mb-2 text-left">Message</label>
+                <textarea id="message" class="w-full mb-4 p-2 border border-gray-300 rounded" rows="4" required></textarea>
+                <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded transition duration-300 hover:bg-purple-700">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+
+        function revealSections() {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < triggerBottom) {
+                    section.classList.add('fade-in');
+                    section.classList.remove('hidden');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealSections);
+        revealSections();
+    </script>
+</body>
+</html>
