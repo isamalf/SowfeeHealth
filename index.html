@@ -3,217 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sowfee - Landing Page</title>
-    <link href="styles.css" rel="stylesheet">
+    <title>Sowfee Health - Mental Wellness Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #6936f5;
+            --secondary: #f8f9fe;
+            --accent: #ff6b6b;
+            --text: #2d2d35;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            scroll-behavior: smooth;
+            background: var(--secondary);
+            color: var(--text);
+            overflow-x: hidden;
         }
 
-        .section {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-        }
-        
-        .fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        /* Modern Glassmorphism Header */
         header {
             position: fixed;
-            top: 0;
             width: 100%;
-            z-index: 10;
-            padding: 1rem 0;
-        }
-
-        .header-container {
+            padding: 1rem 5%;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        nav {
-            flex-grow: 1;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), #8a63f2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-auth {
             display: flex;
-            justify-content: center;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        nav a {
-            margin: 0 20px;
-            color: black;
-            transition: color 0.3s;
+        .nav-link {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        nav a:hover {
-            color: #8F00FF;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .auth-button {
-            background-color: #8F00FF;
+        .cta-button {
+            background: var(--primary);
             color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .auth-button:hover {
-            background-color: #7000CC;
+        /* Enhanced Hero Section */
+        .hero {
+            padding: 15rem 5% 8rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f0ff 0%, #e6e1ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #6936f5, #a83ef5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: slideUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        /* Feature Blocks */
+        .features {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 5%;
+            text-align: center;
+            background: var(--secondary);
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced Contact Section */
+        .contact-section {
+            padding: 8rem 5%;
+            background: linear-gradient(45deg, var(--primary), #8a63f2);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding-right: 2rem;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-form {
+            background: var(--glass);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: white;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-white font-sans">
-
-    <header class="bg-gray-200 text-black">
-        <div class="header-container">
-            <h1 class="text-2xl font-bold">Sowfee</h1>
-            <nav>
-                <a href="#mission">Mission</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#demo">Demo</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="auth-buttons">
-                <button class="auth-button" onclick="window.location.href='auth.html'">Login</button>
-                <button class="auth-button" onclick="window.location.href='auth.html'">Sign Up</button>
-            </div>
-        </div>
+<body>
+    <header>
+        <div class="logo">Sowfee</div>
+        <nav class="nav-auth">
+            <a href="#login" class="nav-link">Login</a>
+            <a href="#signup" class="cta-button">Get Started</a>
+        </nav>
     </header>
 
-    <!-- Main Section -->
-    <section id="main" class="flex items-center justify-center h-screen bg-white text-center">
-        <div>
-            <h2 class="text-4xl font-bold mb-4 text-purple-600">Welcome to Sowfee</h2>
-            <p class="max-w-2xl mx-auto mb-6">We are dedicated to enhancing mental health services in educational institutions. Join us in our mission to empower counselors and support students through innovative solutions.</p>
-            <a href="#mission" class="bg-purple-600 text-white px-6 py-3 rounded shadow-lg hover:bg-purple-700 transition duration-300" id="learnMoreBtn">Learn More</a>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section id="mission" class="flex items-center justify-center h-screen bg-gray-100 text-center section hidden">
-        <div class="max-w-3xl mx-auto p-8">
-            <h2 class="text-4xl font-bold mb-4 text-purple-600">Our Mission</h2>
-            <p class="text-lg mb-6">At Sowfee, we are committed to revolutionizing mental health services in educational institutions. Our goal is to empower counselors and enhance student well-being through innovative pulse surveys and analytics.</p>
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold mb-2 text-purple-600">Our Commitment</h3>
-                <p class="mb-4">We strive to provide actionable insights through data-driven approaches, ensuring that every student receives the support they need.</p>
-                <h3 class="text-2xl font-semibold mb-2 text-purple-600">Why Choose Sowfee?</h3>
-                <ul class="list-disc list-inside text-left mb-4">
-                    <li>Customized surveys tailored to specific needs</li>
-                    <li>User-friendly interface for counselors and students</li>
-                    <li>Real-time analytics to track student engagement</li>
-                    <li>Dedicated support to help you every step of the way</li>
-                </ul>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Student Mental Health Support</h1>
+            <p class="subheading">Proactive wellness monitoring powered by AI insights</p>
+            <div class="cta-group">
+                <a href="#demo" class="cta-button">Watch Demo</a>
+                <a href="#contact" class="cta-button">Get Started</a>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="flex items-center justify-center h-screen bg-white text-center section hidden">
-        <div>
-            <h2 class="text-4xl font-bold mb-4 text-purple-600">Pricing Plans</h2>
-            <div class="flex justify-center space-x-8">
-                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
-                    <h3 class="text-xl font-bold mb-2">Basic</h3>
-                    <p class="mb-4">$20/month</p>
-                    <ul class="mb-4">
-                        <li>Up to 100 students</li>
-                        <li>Basic analytics</li>
-                        <li>Email support</li>
-                    </ul>
-                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
-                </div>
-                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
-                    <h3 class="text-xl font-bold mb-2">Pro</h3>
-                    <p class="mb-4">$50/month</p>
-                    <ul class="mb-4">
-                        <li>Up to 500 students</li>
-                        <li>Advanced analytics</li>
-                        <li>Priority email support</li>
-                    </ul>
-                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
-                </div>
-                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
-                    <h3 class="text-xl font-bold mb-2">Premium</h3>
-                    <p class="mb-4">$100/month</p>
-                    <ul class="mb-4">
-                        <li>Unlimited students</li>
-                        <li>Advanced analytics</li>
-                        <li>Dedicated account manager</li>
-                    </ul>
-                    <a href="auth.html" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Get Started</a>
-                </div>
-                <div class="bg-white shadow-lg rounded-lg p-6 w-64">
-                    <h3 class="text-xl font-bold mb-2">Enterprise</h3>
-                    <p class="mb-4">Contact for pricing</p>
-                    <ul class="mb-4">
-                        <li>Unlimited students</li>
-                        <li>Custom analytics</li>
-                        <li>24/7 support</li>
-                    </ul>
-                    <a href="#contact" class="bg-purple-600 text-white px-4 py-2 rounded transition duration-300 hover:bg-purple-700">Contact Us</a>
-                </div>
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-brain feature-icon"></i>
+                <h3>AI-Powered Insights</h3>
+                <p>Real-time emotional analysis using machine learning</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3>Secure Platform</h3>
+                <p>End-to-end encryption & FERPA compliance</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>Advanced Analytics</h3>
+                <p>Interactive dashboards with real-time data</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-comments feature-icon"></i>
+                <h3>24/7 Support</h3>
+                <p>Dedicated mental health professionals</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt feature-icon"></i>
+                <h3>Mobile Ready</h3>
+                <p>Cross-platform compatibility</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap feature-icon"></i>
+                <h3>Educator Tools</h3>
+                <p>Customizable survey templates</p>
             </div>
         </div>
     </section>
 
-    <!-- Demo Section -->
-    <section id="demo" class="flex items-center justify-center h-screen bg-gray-100 text-center section hidden">
-        <div>
-            <h2 class="text-4xl font-bold mb-4 text-purple-600">Watch Our Demo</h2>
-            <p class="mb-6">See how Sowfee works and the impact it can have on mental health services.</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/fXbKOs2cozU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <section class="demo-section">
+        <h2>See Our Platform in Action</h2>
+        <div class="video-container">
+            <iframe width="100%" height="450" src="https://www.youtube.com/embed/your-video-id" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="flex items-center justify-center h-screen bg-white text-center section hidden">
-        <div>
-            <h2 class="text-4xl font-bold mb-4 text-purple-600">Contact Us</h2>
-            <p class="mb-4">We'd love to hear from you! Please fill out the form below to get in touch.</p>
-            <form class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
-                <label for="name" class="block mb-2 text-left">Name</label>
-                <input type="text" id="name" class="w-full mb-4 p-2 border border-gray-300 rounded" required>
-                <label for="email" class="block mb-2 text-left">Email</label>
-                <input type="email" id="email" class="w-full mb-4 p-2 border border-gray-300 rounded" required>
-                <label for="message" class="block mb-2 text-left">Message</label>
-                <textarea id="message" class="w-full mb-4 p-2 border border-gray-300 rounded" rows="4" required></textarea>
-                <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded transition duration-300 hover:bg-purple-700">Submit</button>
+    <section class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Start Your Wellness Journey</h2>
+                <div class="contact-details">
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 Wellness Street<br>Education City, EC 12345</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-phone"></i>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <p>support@sowfeehealth.com</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Institution Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email *" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Estimated Student Population (Optional)">
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Message *" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
             </form>
         </div>
     </section>
 
     <script>
-        const sections = document.querySelectorAll('.section');
-
-        function revealSections() {
-            const triggerBottom = window.innerHeight / 5 * 4;
-            
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop < triggerBottom) {
-                    section.classList.add('fade-in');
-                    section.classList.remove('hidden');
-                }
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             });
-        }
+        });
 
-        window.addEventListener('scroll', revealSections);
-        revealSections();
+        // Form Handling
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will respond within 24 hours.');
+            form.reset();
+        });
     </script>
 </body>
 </html>
