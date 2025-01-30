@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* Modern Glassmorphism Header */
+        /* Header */
         header {
             position: fixed;
             width: 100%;
@@ -56,15 +56,6 @@
             align-items: center;
         }
 
-        .nav-link {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         .cta-button {
             background: var(--primary);
             color: white;
@@ -73,9 +64,16 @@
             text-decoration: none;
             font-weight: 600;
             transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
         }
 
-        /* Enhanced Hero Section */
+        .cta-button.outline {
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Hero Section */
         .hero {
             padding: 15rem 5% 8rem;
             min-height: 100vh;
@@ -87,8 +85,6 @@
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
@@ -112,7 +108,7 @@
             opacity: 0.9;
         }
 
-        /* Feature Blocks */
+        /* Features Section */
         .features {
             padding: 8rem 5%;
             background: white;
@@ -146,7 +142,7 @@
         }
 
         /* Demo Section */
-        .demo-section {
+        #demo {
             padding: 8rem 5%;
             text-align: center;
             background: var(--secondary);
@@ -161,7 +157,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        /* Enhanced Contact Section */
+        /* Contact Section */
         .contact-section {
             padding: 8rem 5%;
             background: linear-gradient(45deg, var(--primary), #8a63f2);
@@ -177,59 +173,47 @@
         }
 
         .contact-info {
-            padding-right: 2rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
         }
 
-        .contact-info h2 {
-            margin-bottom: 1.5rem;
+        .benefits-list {
+            list-style: none;
+            margin-top: 2rem;
         }
 
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-details div {
+        .benefits-list li {
             display: flex;
             align-items: center;
             gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .contact-form {
-            background: var(--glass);
+            background: white;
             padding: 2rem;
             border-radius: 20px;
-            backdrop-filter: blur(10px);
+            color: var(--text);
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 1rem;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(105, 54, 245, 0.1);
             border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: white;
-            background: rgba(255,255,255,0.2);
-            outline: none;
+            background: white;
+            color: var(--text);
         }
 
         button[type="submit"] {
-            background: white;
-            color: var(--primary);
+            background: var(--primary);
+            color: white;
             padding: 1rem 2rem;
             border: none;
             border-radius: 10px;
@@ -239,11 +223,7 @@
             transition: all 0.3s ease;
         }
 
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
+        /* Animations */
         @keyframes slideUp {
             from {
                 transform: translateY(50px);
@@ -255,7 +235,21 @@
             }
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .nav-auth {
+                gap: 0.8rem;
+            }
+            
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -274,7 +268,7 @@
     <header>
         <div class="logo">Sowfee</div>
         <nav class="nav-auth">
-            <a href="#login" class="nav-link">Login</a>
+            <a href="#login" class="cta-button outline">Login</a>
             <a href="#signup" class="cta-button">Get Started</a>
         </nav>
     </header>
@@ -285,7 +279,7 @@
             <p class="subheading">Proactive wellness monitoring powered by AI insights</p>
             <div class="cta-group">
                 <a href="#demo" class="cta-button">Watch Demo</a>
-                <a href="#contact" class="cta-button">Get Started</a>
+                <a href="#contact" class="cta-button outline">Learn More</a>
             </div>
         </div>
     </section>
@@ -325,7 +319,7 @@
         </div>
     </section>
 
-    <section class="demo-section">
+    <section id="demo">
         <h2>See Our Platform in Action</h2>
         <div class="video-container">
             <iframe width="100%" height="450" src="https://www.youtube.com/embed/your-video-id" 
@@ -337,21 +331,25 @@
     <section class="contact-section">
         <div class="contact-grid">
             <div class="contact-info">
-                <h2>Start Your Wellness Journey</h2>
-                <div class="contact-details">
-                    <div>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>123 Wellness Street<br>Education City, EC 12345</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-phone"></i>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                    <div>
-                        <i class="fas fa-envelope"></i>
-                        <p>support@sowfeehealth.com</p>
-                    </div>
-                </div>
+                <h2>Why Choose Sowfee?</h2>
+                <ul class="benefits-list">
+                    <li>
+                        <i class="fas fa-shield-alt" style="color: var(--primary);"></i>
+                        <span>FERPA Compliant & Secure</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock" style="color: var(--primary);"></i>
+                        <span>24/7 Support Team</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chart-line" style="color: var(--primary);"></i>
+                        <span>Real-time Analytics</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-mobile-alt" style="color: var(--primary);"></i>
+                        <span>Mobile-Optimized Platform</span>
+                    </li>
+                </ul>
             </div>
             <form class="contact-form">
                 <div class="form-group">
@@ -375,14 +373,18 @@
     </section>
 
     <script>
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth Scroll to Demo
+        document.querySelectorAll('a[href="#demo"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const demoSection = document.querySelector('#demo');
+                const headerOffset = 100;
+                const elementPosition = demoSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
             });
         });
