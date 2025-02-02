@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sowfee Health - Student Wellness Survey</title>
+    <style>
+        :root {
+            --primary: #6936f5;
+            --secondary: #f8f9fe;
+            --accent: #ff6b6b;
+            --text: #2d2d35;
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--secondary);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .survey-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .survey-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .survey-header h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .survey-progress {
+            height: 6px;
+            background: rgba(105, 54, 245, 0.1);
+            margin: 2rem 0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .survey-progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), #8a63f2);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .student-info {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            animation: slideUp 0.6s ease;
+        }
+
+        .info-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-field label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .info-field input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(105, 54, 245, 0.15);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-field input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(105, 54, 245, 0.1);
+            outline: none;
+        }
+
+        .question-group {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            animation: slideUp 0.6s ease;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .likert-scale {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.8rem;
+        }
+
+        .likert-option {
+            text-align: center;
+            padding: 1.2rem;
+            border: 2px solid rgba(105, 54, 245, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            position: relative;
+        }
+
+        .likert-option:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        input[type="radio"]:checked + .likert-option {
+            border-color: var(--primary);
+            background: rgba(105, 54, 245, 0.05);
+            box-shadow: 0 4px 12px rgba(105, 54, 245, 0.1);
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 3rem auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(105, 54, 245, 0.2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(105, 54, 245, 0.3);
+        }
+
+        .privacy-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1.5rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .survey-container {
+                padding: 2rem 1rem;
+            }
+            
+            .likert-scale {
+                grid-template-columns: 1fr;
+            }
+            
+            .likert-option {
+                padding: 1rem;
+            }
+            
+            .survey-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="survey-container">
+        <div class="survey-header">
+            <h1>Student Wellness Check</h1>
+            <p>Your anonymous feedback helps us improve student support services</p>
+            <div class="survey-progress">
+                <div class="survey-progress-bar"></div>
+            </div>
+        </div>
+
+        <form id="wellnessSurvey">
+            <!-- Student Information -->
+            <div class="student-info">
+                <div class="info-field">
+                    <label>Full Name</label>
+                    <input type="text" name="student_name" required 
+                           pattern="[A-Za-z ]+" 
+                           title="Please enter your full name">
+                </div>
+                
+                <div class="info-field">
+                    <label>School Email</label>
+                    <input type="email" name="school_email" required
+                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.edu$"
+                           title="Please enter a valid .edu email address">
+                </div>
+            </div>
+
+            <!-- Survey Questions -->
+            <div class="question-group">
+                <div class="question-text">
+                    1. How would you rate your overall well-being this week?
+                </div>
+                <div class="likert-scale">
+                    <label>
+                        <input type="radio" name="q1" value="5" required>
+                        <div class="likert-option">😊 Excellent</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="4">
+                        <div class="likert-option">🙂 Good</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="3">
+                        <div class="likert-option">😐 Neutral</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="2">
+                        <div class="likert-option">😕 Struggling</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="1">
+                        <div class="likert-option">😞 Difficult</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Repeat similar structure for questions 2-5 -->
+            <!-- Question 2 -->
+            <div class="question-group">
+                <div class="question-text">
+                    2. How often have you felt overwhelmed academically?
+                </div>
+                <div class="likert-scale">
+                    <label>
+                        <input type="radio" name="q2" value="1" required>
+                        <div class="likert-option">Never</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="2">
+                        <div class="likert-option">Rarely</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="3">
+                        <div class="likert-option">Sometimes</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="4">
+                        <div class="likert-option">Often</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="5">
+                        <div class="likert-option">Always</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-group">
+                <div class="question-text">
+                    3. How supported do you feel by campus resources?
+                </div>
+                <div class="likert-scale">
+                    <label>
+                        <input type="radio" name="q3" value="5" required>
+                        <div class="likert-option">Very Supported</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="4">
+                        <div class="likert-option">Supported</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="3">
+                        <div class="likert-option">Neutral</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="2">
+                        <div class="likert-option">Unsupported</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="1">
+                        <div class="likert-option">Very Unsupported</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-group">
+                <div class="question-text">
+                    4. How would you rate your sleep quality?
+                </div>
+                <div class="likert-scale">
+                    <label>
+                        <input type="radio" name="q4" value="5" required>
+                        <div class="likert-option">💤 Excellent</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="4">
+                        <div class="likert-option">😌 Good</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="3">
+                        <div class="likert-option">🛌 Average</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="2">
+                        <div class="likert-option">😣 Poor</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="1">
+                        <div class="likert-option">😫 Very Poor</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-group">
+                <div class="question-text">
+                    5. How comfortable are you seeking mental health support?
+                </div>
+                <div class="likert-scale">
+                    <label>
+                        <input type="radio" name="q5" value="5" required>
+                        <div class="likert-option">🌟 Very Comfortable</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="4">
+                        <div class="likert-option">👍 Comfortable</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="3">
+                        <div class="likert-option">🤔 Neutral</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="2">
+                        <div class="likert-option">😟 Uncomfortable</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="1">
+                        <div class="likert-option">😰 Very Uncomfortable</div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Wellness Check</button>
+            <p class="privacy-note">
+                Your responses are confidential and protected by FERPA regulations.<br>
+                Data will only be used to improve student support services.
+            </p>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('wellnessSurvey');
+        const progressBar = document.querySelector('.survey-progress-bar');
+        const totalRequired = document.querySelectorAll('[required]').length;
+
+        function updateProgress() {
+            const answered = Array.from(form.elements).filter(el => {
+                if (el.required) {
+                    if (el.type === 'radio') {
+                        return document.querySelector(`input[name="${el.name}"]:checked`);
+                    }
+                    return el.value.trim() !== '';
+                }
+                return false;
+            }).length;
+
+            progressBar.style.width = `${(answered/totalRequired)*100}%`;
+        }
+
+        form.addEventListener('input', updateProgress);
+        form.addEventListener('change', updateProgress);
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!form.checkValidity()) {
+                alert('Please complete all required fields');
+                return;
+            }
+
+            // Add your submission logic here
+            const formData = new FormData(form);
+            console.log(Object.fromEntries(formData));
+            
+            // Show confirmation
+            form.reset();
+            progressBar.style.width = '0%';
+            alert('Thank you for your honest responses! Your input makes a difference.');
+        });
+
+        // Add input validation for school email
+        const emailInput = document.querySelector('input[name="school_email"]');
+        emailInput.addEventListener('input', () => {
+            const isValid = emailInput.checkValidity();
+            emailInput.style.borderColor = isValid ? 
+                'rgba(105, 54, 245, 0.15)' : 
+                'var(--accent)';
+        });
+    </script>
+</body>
+</html>
